@@ -27,6 +27,7 @@ const Header = ({ siteTitle }) => (
           {siteTitle}
         </Link>
       </h1>
+      <Link to="/addTalk">Add Talk</Link>
     </div>
   </header>
 )
