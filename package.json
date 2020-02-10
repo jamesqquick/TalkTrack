@@ -13,6 +13,7 @@
     "gatsby-plugin-sharp": "^2.4.3",
     "gatsby-source-filesystem": "^2.1.46",
     "gatsby-transformer-sharp": "^2.3.13",
+    "netlify-lambda": "^1.6.3",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -30,10 +31,13 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "prod": "npm run build; npm run build:lambda",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "start:lambda": "netlify-lambda serve functions",
+    "build:lambda": "netlify-lambda build functions"
   },
   "repository": {
     "type": "git",
