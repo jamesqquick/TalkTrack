@@ -4,8 +4,9 @@ const trello = new Trello(
   process.env.TRELLO_APPLICATION_KEY,
   process.env.TRELLO_USER_TOKEN
 );
+const axios = require("axios");
 
-exports.handler = function(event, context, callback) {
+exports.handler = async function(event, context, callback) {
   const body = JSON.parse(event.body);
   const { title, date, slides, conference, description, hashtag } = body;
   const header = `${title}-${conference}`;
@@ -16,23 +17,29 @@ hashtag=${hashtag}
 date=${date}
 description=${description}`;
 
-  trello.addCard(
-    header,
-    cardContent,
-    process.env.TRELLO_LIST_ID,
-    (err, card) => {
-      if (err) {
-        console.log(err);
-        return callback(null, {
-          statusCode: 500,
-          body: JSON.stringify({ msg: "Failed to send email." }),
-        });
-      }
-      console.log(card);
-      return callback(null, {
-        statusCode: 200,
-        body: JSON.stringify({ msg: body }),
-      });
+  try {
+    const card = await trello.addCard(
+      header,
+      cardContent,
+      process.env.TRELLO_LIST_ID
+    );
+    const res = await axios.post(process.env.NETLIFY_BUILD_HOOK);
+    if (res.status !== 200) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ msg: "Failed to trigger build." }),
+      };
     }
-  );
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ msg: body }),
+    };
+  } catch (ex) {
+    console.error(ex);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ msg: "Failed to send email." }),
+    };
+  }
 };

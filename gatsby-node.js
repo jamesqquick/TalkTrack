@@ -25,12 +25,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const talkPage = path.resolve("./src/templates/talk.js");
   const talks = await trello.getCardsForList(process.env.TRELLO_LIST_ID);
 
-  const customFields = await trello.getCustomFieldsOnBoard(
-    process.env.TRELLO_BOARD_ID
-  );
-  console.log(customFields);
-
-  talks.forEach((talk, index) => {
+  const formattedTalks = talks.map(talk => {
     const lines = talk.desc.split("\n");
     const cardContent = {};
     lines.forEach(line => {
@@ -39,10 +34,23 @@ exports.createPages = async ({ graphql, actions }) => {
         cardContent[keyValue[0]] = keyValue[1];
       }
     });
+    cardContent["slug"] =
+      "/talk/" +
+      (cardContent.title + " " + cardContent.conference).replace(/ /g, "-");
+    return cardContent;
+  });
+  formattedTalks.forEach((talk, index) => {
     createPage({
-      path: `/${index}`,
+      path: `${talk.slug}`,
       component: talkPage,
-      context: cardContent,
+      context: talk,
     });
+  });
+
+  const indexPage = path.resolve("./src/templates/index.js");
+  createPage({
+    path: "/",
+    component: indexPage,
+    context: { talks: formattedTalks },
   });
 };
