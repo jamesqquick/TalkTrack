@@ -54,6 +54,9 @@ typings/
 # dotenv environment variable files
 .env*
 
+#ignore build lamda functions
+lambda
+
 # gatsby files
 .cache/
 public
