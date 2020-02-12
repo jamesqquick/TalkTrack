@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = {
   siteMetadata: {
     title: `Quick Talks`,
@@ -25,6 +27,25 @@ module.exports = {
         theme_color: `#663399`,
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: `gatsby-source-twitter`,
+      options: {
+        credentials: {
+          consumer_key: process.env.TWITTER_API_KEY,
+          consumer_secret: process.env.TWITTER_API_SECRET,
+          bearer_token: process.env.TWITTER_BEARER_TOKEN,
+        },
+        queries: {
+          jamesqquickQuery: {
+            endpoint: "search/tweets",
+            params: {
+              q: "@jamesqquick",
+              tweet_mode: "extended",
+            },
+          },
+        },
       },
     },
 

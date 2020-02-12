@@ -37,6 +37,7 @@ exports.createPages = async ({ graphql, actions }) => {
     cardContent["slug"] =
       "/talk/" +
       (cardContent.title + " " + cardContent.conference).replace(/ /g, "-");
+    cardContent["id"] = talk.id;
     return cardContent;
   });
   formattedTalks.forEach((talk, index) => {

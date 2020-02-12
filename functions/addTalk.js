@@ -34,11 +34,14 @@ description=${description}`;
       };
     }
 
-    const message = await client.messages.create({
-      body: "Talk has been added and your site is rebuilding.",
-      from: process.env.TWILIO_FROM_NUMBER,
-      to: process.env.TWILIO_TO_NUMBER,
-    });
+    if (process.env.TEXT_ALERTS_ON === "TRUE") {
+      const message = await client.messages.create({
+        body: "Talk has been added and your site is rebuilding.",
+        from: process.env.TWILIO_FROM_NUMBER,
+        to: process.env.TWILIO_TO_NUMBER,
+      });
+      console.log(message);
+    }
 
     return {
       statusCode: 200,

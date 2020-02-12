@@ -1,7 +1,9 @@
 import React from "react";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
+import Feedback from "../components/feedback";
 export default function Talk({ pageContext: talk }) {
+  console.log(talk);
   return (
     <Layout>
       <SEO title={talk.title} />
@@ -15,6 +17,7 @@ export default function Talk({ pageContext: talk }) {
         </a>
         <p>{talk.hashtag}</p>
         <p>{talk.description}</p>
+        <Feedback cardId={talk.id} />
       </div>
     </Layout>
   );
