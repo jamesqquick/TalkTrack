@@ -21,7 +21,8 @@
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
     "trello": "^0.10.0",
-    "twilio": "^3.39.4"
+    "twilio": "^3.39.4",
+    "twitter": "^1.7.1"
   },
   "devDependencies": {
     "prettier": "^1.19.1"

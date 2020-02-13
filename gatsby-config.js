@@ -29,26 +29,6 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
-    {
-      resolve: `gatsby-source-twitter`,
-      options: {
-        credentials: {
-          consumer_key: process.env.TWITTER_API_KEY,
-          consumer_secret: process.env.TWITTER_API_SECRET,
-          bearer_token: process.env.TWITTER_BEARER_TOKEN,
-        },
-        queries: {
-          jamesqquickQuery: {
-            endpoint: "search/tweets",
-            params: {
-              q: "@jamesqquick",
-              tweet_mode: "extended",
-            },
-          },
-        },
-      },
-    },
-
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
