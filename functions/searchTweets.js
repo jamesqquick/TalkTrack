@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
   const hashtag = event.queryStringParameters.hashtag;
 
   try {
-    const res = await client.get("search/tweets", { q: "node.js" });
+    const res = await client.get("search/tweets", { q: hashtag });
     return {
       statusCode: 200,
       body: JSON.stringify({ msg: `Success`, tweets: res.statuses }),
