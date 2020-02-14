@@ -1,28 +1,31 @@
-import React from "react";
-import { useInput } from "../components/useInput";
+import React, { useState } from 'react';
+import { useInput } from '../components/useInput';
+import StarRating from './starRating';
 
 export default function Feedback({ cardId }) {
-  const { value: email, bind: bindEmail, reset: resetEmail } = useInput("");
-  const { value: rating, bind: bindRating, reset: resetRating } = useInput("5");
+  const { value: email, bind: bindEmail, reset: resetEmail } = useInput('');
+  const [rating, setRating] = useState(5);
   const {
     value: feedback,
     bind: bindFeedback,
     reset: resetFeedback,
-  } = useInput("");
+  } = useInput('');
 
   const submitFeedback = async e => {
     e.preventDefault();
-    console.log("submitting", email, feedback, rating);
+    console.log('submitting', email, feedback, rating);
     const feedbackBody = { email, feedback, rating, cardId };
 
+    if (!feedback) return;
+
     try {
-      const url = "/.netlify/functions/addFeedback";
+      const url = '/.netlify/functions/addFeedback';
       const res = await fetch(url, {
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify(feedbackBody),
       });
       if (res.status !== 200) {
-        console.error("Failed to submit talk");
+        console.error('Failed to submit talk');
       } else {
         const data = await res.json();
         console.log(data);
@@ -36,16 +39,19 @@ export default function Feedback({ cardId }) {
   const resetForm = () => {
     resetEmail();
     resetFeedback();
-    resetRating();
+    setRating(5);
   };
 
   return (
-    <>
-      <h2>Give Feedback</h2>
-      <p>How else would I get better?!</p>
+    <section>
+      <h2 className="section-title">How Did I Do?</h2>
+      <p>
+        Tell me what you thought and <strong>be honest</strong>... because how
+        else would I get better?!
+      </p>
       <form onSubmit={submitFeedback}>
-        <label htmlFor="email">Email (optional)</label>
-        <input type="text" name="email" id="email" {...bindEmail} />
+        <label htmlFor="rating">Rating (5 being the best)</label>
+        <StarRating ratingChanged={rating => setRating(rating)} />
         <label htmlFor="feedback">What feedback do you have?</label>
         <textarea
           name="feedback"
@@ -54,16 +60,10 @@ export default function Feedback({ cardId }) {
           rows="10"
           {...bindFeedback}
         ></textarea>
-        <label htmlFor="rating">Rating (5 being the best)</label>
-        <select name="rating" id="rating" {...bindRating}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
+        <label htmlFor="email">Email (optional)</label>
+        <input type="text" name="email" id="email" {...bindEmail} />
         <button type="submit">Send</button>
       </form>
-    </>
+    </section>
   );
 }

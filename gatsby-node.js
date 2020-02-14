@@ -38,6 +38,14 @@ exports.createPages = async ({ graphql, actions }) => {
       "/talk/" +
       (cardContent.title + " " + cardContent.conference).replace(/ /g, "-");
     cardContent["id"] = talk.id;
+    cardContent["excerpt"] = cardContent.description
+      .split(" ")
+      .splice(0, 30)
+      .join(" ");
+
+    if (cardContent.description.split(" ").length > 50) {
+      cardContent["excerpt"] += "...";
+    }
     return cardContent;
   });
   formattedTalks.forEach((talk, index) => {
