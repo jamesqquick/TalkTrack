@@ -1,8 +1,8 @@
-const path = require("path");
-const { createFilePath } = require("gatsby-source-filesystem");
-require("dotenv").config();
+const path = require('path');
+const { createFilePath } = require('gatsby-source-filesystem');
+require('dotenv').config();
 
-const Trello = require("trello");
+const Trello = require('trello');
 const trello = new Trello(
   process.env.TRELLO_APPLICATION_KEY,
   process.env.TRELLO_USER_TOKEN
@@ -22,29 +22,29 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  const talkPage = path.resolve("./src/templates/talk.js");
+  const talkPage = path.resolve('./src/templates/talk.js');
   const talks = await trello.getCardsForList(process.env.TRELLO_LIST_ID);
 
   const formattedTalks = talks.map(talk => {
-    const lines = talk.desc.split("\n");
+    const lines = talk.desc.split('\n');
     const cardContent = {};
     lines.forEach(line => {
-      const keyValue = line.split("=");
+      const keyValue = line.split('=');
       if (keyValue[0] && keyValue[1]) {
         cardContent[keyValue[0]] = keyValue[1];
       }
     });
-    cardContent["slug"] =
-      "/talk/" +
-      (cardContent.title + " " + cardContent.conference).replace(/ /g, "-");
-    cardContent["id"] = talk.id;
-    cardContent["excerpt"] = cardContent.description
-      .split(" ")
+    cardContent['slug'] =
+      '/talk/' +
+      (cardContent.title + ' ' + cardContent.conference).replace(/ /g, '-');
+    cardContent['id'] = talk.id;
+    cardContent['excerpt'] = cardContent.description
+      .split(' ')
       .splice(0, 30)
-      .join(" ");
+      .join(' ');
 
-    if (cardContent.description.split(" ").length > 50) {
-      cardContent["excerpt"] += "...";
+    if (cardContent.description.split(' ').length > 50) {
+      cardContent['excerpt'] += '...';
     }
     return cardContent;
   });
@@ -56,9 +56,9 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   });
 
-  const indexPage = path.resolve("./src/templates/index.js");
+  const indexPage = path.resolve('./src/templates/index.js');
   createPage({
-    path: "/",
+    path: '/',
     component: indexPage,
     context: { talks: formattedTalks },
   });
