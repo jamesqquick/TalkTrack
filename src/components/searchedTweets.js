@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 export default function SearchedTweets({ hashtag }) {
   const [tweets, setTweets] = useState(null);
   useEffect(() => {
     let unhashedTag = hashtag;
-    if (hashtag.startsWith("#")) {
+    if (hashtag.startsWith('#')) {
       unhashedTag = hashtag.substring(1);
     }
     const searchTweets = async () => {
@@ -21,15 +21,24 @@ export default function SearchedTweets({ hashtag }) {
     searchTweets();
   }, []);
   return (
-    <div>
+    <>
       <h2>Tweets</h2>
-      {tweets != null &&
-        tweets.map(tweet => (
-          <div className="tweet" key={tweet.id}>
-            <p>{tweet.text}</p>
-            <p>by: {tweet.user.screen_name}</p>
-          </div>
-        ))}
-    </div>
+      <div className="tweets-list">
+        {tweets != null &&
+          tweets.map(tweet => (
+            <div className="card hover " key={tweet.id}>
+              <img
+                className="card-image"
+                src={tweet.user.profile_image_url_https}
+                alt={tweet.user.screen_name + ' image'}
+              />
+              <p>{tweet.text}</p>
+              <a href={`https://www.twitter.com/${tweet.user.screen_name}`}>
+                <p>by: {tweet.user.screen_name}</p>
+              </a>
+            </div>
+          ))}
+      </div>
+    </>
   );
 }

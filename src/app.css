@@ -117,7 +117,7 @@ section {
   text-decoration: none;
 }
 
-.card:hover {
+.hover:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 20px hsl(216, 40%, 31%, 15%);
 }
@@ -138,18 +138,26 @@ section {
   margin-bottom: 0;
 }
 
-.talk {
+.card-image {
+  border-radius: 100%;
+}
+
+.relative {
   position: relative;
 }
 
 .talk-hash {
   position: absolute;
-  top: -20px;
-  right: 50px;
+  top: -50px;
+  right: -50px;
   font-size: 3rem;
   color: #ccc;
+  -webkit-transform: rotate(8deg);
   transform: rotate(8deg);
-  color: var(--accent-color);
+  background-color: var(--accent-color);
+  line-height: 2rem;
+  color: var(--main-light-text);
+  padding: 1rem;
 }
 
 /* FORMS */
@@ -212,6 +220,13 @@ button:hover {
 
 .star:hover {
   cursor: pointer;
+}
+
+/* tweets */
+.tweets-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-gap: 1rem;
 }
 
 @media only screen and (max-width: 480px) {

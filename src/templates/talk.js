@@ -8,7 +8,7 @@ export default function Talk({ pageContext: talk }) {
   return (
     <Layout>
       <SEO title={talk.title} />
-      <div className="talk">
+      <div className="card relative">
         <small className="card-date">{talk.date}</small>
         <h1 className="card-title">{talk.title}</h1>
         <p>
@@ -18,9 +18,11 @@ export default function Talk({ pageContext: talk }) {
 
         <p className="talk-hash">{talk.hashtag}</p>
         <p>{talk.description}</p>
-        <Feedback cardId={talk.id} />
-        <SearchedTweets hashtag={talk.hashtag} />
       </div>
+      <div className="card">
+        <Feedback cardId={talk.id} />
+      </div>
+      <SearchedTweets hashtag={talk.hashtag} />
     </Layout>
   );
 }
