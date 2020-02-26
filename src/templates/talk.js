@@ -15,7 +15,6 @@ export default function Talk({ pageContext: talk }) {
           <a href={talk.slides}>Slides</a>
         </p>
 
-        <p className="talk-hash">{talk.hashtag}</p>
         <p>{talk.description}</p>
       </div>
       <div className="card">

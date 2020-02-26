@@ -11,9 +11,7 @@ export default function AddTalk() {
     bind: bindConference,
     reset: resetConference,
   } = useInput('');
-  // const { value: hashtag, bind: bindHashtag, reset: resetHashtag } = useInput(
-  //''
-  //);
+
   const {
     value: description,
     bind: bindDescription,
@@ -25,7 +23,6 @@ export default function AddTalk() {
     resetConference();
     resetDate();
     resetSlides();
-    // resetHashtag();
     resetDescription();
   };
 
@@ -66,8 +63,6 @@ export default function AddTalk() {
             id="conference"
             {...bindConference}
           />
-          {/* <label htmlFor="hashtag">Hashtag</label> */}
-          {/* <input type="text" name="hashtag" id="hashtag" {...bindHashtag} /> */}
           <label htmlFor="date">Date</label>
           <input type="text" name="date" id="date" {...bindDate} />
           <label htmlFor="slides">Slides</label>
