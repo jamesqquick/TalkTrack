@@ -11,12 +11,11 @@ const client = require('twilio')(accountSid, authToken);
 
 exports.handler = async function(event, context, callback) {
   const body = JSON.parse(event.body);
-  const { title, date, slides, conference, description, hashtag } = body;
+  const { title, date, slides, conference, description } = body;
   const header = `${title}-${conference}`;
   const cardContent = `title=${title}
 conference=${conference}
 slides=${slides}
-hashtag=${hashtag}
 date=${date}
 description=${description}`;
 

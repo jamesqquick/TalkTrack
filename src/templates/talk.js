@@ -22,7 +22,7 @@ export default function Talk({ pageContext: talk }) {
       <div className="card">
         <Feedback cardId={talk.id} />
       </div>
-      <SearchedTweets hashtag={talk.hashtag} />
+      <SearchedTweets />
     </Layout>
   );
 }

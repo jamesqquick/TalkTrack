@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-export default function SearchedTweets({ hashtag }) {
+export default function SearchedTweets() {
   const [tweets, setTweets] = useState(null);
   useEffect(() => {
-    let unhashedTag = hashtag;
-    if (hashtag.startsWith('#')) {
-      unhashedTag = hashtag.substring(1);
-    }
     const searchTweets = async () => {
       try {
-        const url = `/.netlify/functions/searchTweets?hashtag=${unhashedTag}`;
+        const url = `/.netlify/functions/searchTweets`;
         const res = await fetch(url);
         const data = await res.json();
-        console.log(data.tweets);
         setTweets(data.tweets);
       } catch (ex) {
         console.error(ex);

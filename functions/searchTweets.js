@@ -12,6 +12,7 @@ exports.handler = async (event, context) => {
   if (event.httpMethod !== 'GET') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
+  console.log('searching tweets');
 
   try {
     const res = await client.get('search/tweets', { q: '#JQQuickTalks' });
