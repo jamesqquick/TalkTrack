@@ -1,13 +1,13 @@
-require("dotenv").config();
-const Trello = require("trello");
+require('dotenv').config();
+const Trello = require('trello');
 const trello = new Trello(
   process.env.TRELLO_APPLICATION_KEY,
   process.env.TRELLO_USER_TOKEN
 );
-const axios = require("axios");
+const axios = require('axios');
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = require("twilio")(accountSid, authToken);
+const client = require('twilio')(accountSid, authToken);
 
 exports.handler = async function(event, context, callback) {
   const body = JSON.parse(event.body);
@@ -30,17 +30,8 @@ description=${description}`;
     if (res.status !== 200) {
       return {
         statusCode: 500,
-        body: JSON.stringify({ msg: "Failed to trigger build." }),
+        body: JSON.stringify({ msg: 'Failed to trigger build.' }),
       };
-    }
-
-    if (process.env.TEXT_ALERTS_ON === "TRUE") {
-      const message = await client.messages.create({
-        body: "Talk has been added and your site is rebuilding.",
-        from: process.env.TWILIO_FROM_NUMBER,
-        to: process.env.TWILIO_TO_NUMBER,
-      });
-      console.log(message);
     }
 
     return {
@@ -51,7 +42,7 @@ description=${description}`;
     console.error(ex);
     return {
       statusCode: 500,
-      body: JSON.stringify({ msg: "Failed to send email." }),
+      body: JSON.stringify({ msg: 'Failed to send email.' }),
     };
   }
 };
