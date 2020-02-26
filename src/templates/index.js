@@ -5,7 +5,6 @@ import { Link } from 'gatsby';
 
 const IndexPage = props => {
   const talks = props.pageContext.talks;
-  console.log(talks);
   return (
     <Layout>
       <SEO title="Home" />
