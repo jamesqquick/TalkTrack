@@ -4,6 +4,9 @@ const trello = new Trello(
   process.env.TRELLO_APPLICATION_KEY,
   process.env.TRELLO_USER_TOKEN
 );
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
 
 exports.handler = async function(event, context, callback) {
   const body = JSON.parse(event.body);

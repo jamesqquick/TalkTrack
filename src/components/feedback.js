@@ -25,7 +25,7 @@ export default function Feedback({ cardId }) {
         body: JSON.stringify(feedbackBody),
       });
       if (res.status !== 200) {
-        console.error('Failed to submit talk');
+        console.error('Failed to submit feedback');
       } else {
         const data = await res.json();
         console.log(data);

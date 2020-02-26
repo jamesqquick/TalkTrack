@@ -4,7 +4,6 @@ import SEO from '../components/seo';
 import Feedback from '../components/feedback';
 import SearchedTweets from '../components/searchedTweets';
 export default function Talk({ pageContext: talk }) {
-  console.log(talk);
   return (
     <Layout>
       <SEO title={talk.title} />
