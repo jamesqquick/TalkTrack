@@ -103,6 +103,10 @@ section {
   font-size: 1.4rem;
 }
 
+.nav-item {
+  margin-left: 1rem;
+}
+
 /* card */
 .card {
   background-color: white;

@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@auth0/auth0-spa-js": "^1.6.5",
     "axios": "^0.19.2",
     "gatsby": "^2.19.7",
     "gatsby-image": "^2.2.39",
@@ -16,6 +17,8 @@
     "gatsby-source-filesystem": "^2.1.46",
     "gatsby-source-twitter": "^3.2.1",
     "gatsby-transformer-sharp": "^2.3.13",
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.7.0",
     "netlify-lambda": "^1.6.3",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
