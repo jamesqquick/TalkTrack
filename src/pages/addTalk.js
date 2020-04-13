@@ -37,7 +37,6 @@ export default function AddTalk() {
     e.preventDefault();
     try {
       const token = await getTokenSilently();
-      console.log(token);
       const url = '/.netlify/functions/addTalk';
       const res = await fetch(url, {
         method: 'POST',
@@ -49,7 +48,6 @@ export default function AddTalk() {
       if (res.status !== 200) {
         console.error('Failed to submit talk');
       } else {
-        console.log('got it');
         //const data = res.json();
         resetForm();
       }
