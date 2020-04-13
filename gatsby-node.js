@@ -60,7 +60,6 @@ exports.createPages = async ({ graphql, actions }) => {
   const sortedTalks = formattedTalks.sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
-  console.log(sortedTalks);
   createPage({
     path: '/',
     component: indexPage,
