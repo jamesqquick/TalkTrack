@@ -58,7 +58,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const indexPage = path.resolve('./src/templates/index.js');
   const sortedTalks = formattedTalks.sort((a, b) => a - b < 0);
-  console.log(sortedTalks);
   createPage({
     path: '/',
     component: indexPage,
