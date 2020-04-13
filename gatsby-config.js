@@ -1,8 +1,8 @@
-require("dotenv").config();
+require('dotenv').config();
 
 module.exports = {
   siteMetadata: {
-    title: `Quick Talks`,
+    title: `Quick's Talks`,
     description: `A fun project for speakers looking to track their talks and get feedback from attendees`,
     author: `@jamesqquick`,
   },
@@ -35,8 +35,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [`Merriweather`, "Montserrat"],
-        display: "swap",
+        fonts: [`Merriweather`, 'Montserrat'],
+        display: 'swap',
       },
     },
   ],
