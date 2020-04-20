@@ -8,7 +8,10 @@ const axios = require('axios');
 var jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
 const { promisify } = require('util');
-
+const {
+  availablePermissions,
+  checkUserForPermission,
+} = require('./utils/auth.js');
 const client = jwksClient({
   cache: true, // Default Value
   cacheMaxEntries: 5, // Default value
@@ -18,11 +21,14 @@ const client = jwksClient({
 let signingKey;
 
 exports.handler = async function(event, context, callback) {
-  const rawAuthorizationHeader = event.headers['authorization'];
   let user = null;
   try {
-    user = await checkHeaderForValidToken(rawAuthorizationHeader);
+    user = await checkHeaderForValidToken(event.headers);
+    checkUserForPermission(user, availablePermissions.ADD_TALK_PERMISSION);
+
+    console.log(user);
   } catch (err) {
+    console.error(err);
     return {
       statusCode: 401,
       body: JSON.stringify({ msg: err }),
@@ -39,18 +45,18 @@ date=${date}
 description=${description}`;
 
   try {
-    const card = await trello.addCard(
-      header,
-      cardContent,
-      process.env.TRELLO_LIST_ID
-    );
-    const res = await axios.post(process.env.NETLIFY_BUILD_HOOK);
-    if (res.status !== 200) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ msg: 'Failed to trigger build.' }),
-      };
-    }
+    // const card = await trello.addCard(
+    //   header,
+    //   cardContent,
+    //   process.env.TRELLO_LIST_ID
+    // );
+    // const res = await axios.post(process.env.NETLIFY_BUILD_HOOK);
+    // if (res.status !== 200) {
+    //   return {
+    //     statusCode: 500,
+    //     body: JSON.stringify({ msg: 'Failed to trigger build.' }),
+    //   };
+    // }
 
     return {
       statusCode: 200,
@@ -65,7 +71,9 @@ description=${description}`;
   }
 };
 
-const checkHeaderForValidToken = async rawAuthorizationHeader => {
+const checkHeaderForValidToken = async headers => {
+  const rawAuthorizationHeader = headers['authorization'];
+
   if (!rawAuthorizationHeader) {
     throw 'Unauthorized. No access token included';
   }
@@ -88,6 +96,7 @@ const checkHeaderForValidToken = async rawAuthorizationHeader => {
 
   try {
     var decoded = jwt.verify(accessToken, signingKey);
+    console.log(decoded);
   } catch (err) {
     console.error(err);
     throw err.message;
