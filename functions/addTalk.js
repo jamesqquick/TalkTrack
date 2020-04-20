@@ -45,18 +45,18 @@ date=${date}
 description=${description}`;
 
   try {
-    // const card = await trello.addCard(
-    //   header,
-    //   cardContent,
-    //   process.env.TRELLO_LIST_ID
-    // );
-    // const res = await axios.post(process.env.NETLIFY_BUILD_HOOK);
-    // if (res.status !== 200) {
-    //   return {
-    //     statusCode: 500,
-    //     body: JSON.stringify({ msg: 'Failed to trigger build.' }),
-    //   };
-    // }
+    const card = await trello.addCard(
+      header,
+      cardContent,
+      process.env.TRELLO_LIST_ID
+    );
+    const res = await axios.post(process.env.NETLIFY_BUILD_HOOK);
+    if (res.status !== 200) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ msg: 'Failed to trigger build.' }),
+      };
+    }
 
     return {
       statusCode: 200,
