@@ -17,7 +17,10 @@ const IndexPage = props => {
         {talks.map(talk => (
           <li className="card hover" key={talk.slug}>
             <Link to={talk.slug}>
-              <small className="card-date">{talk.date}</small>
+              <p>
+                <strong>{talk.conference}</strong>
+                <small className="card-date"> ({talk.date})</small>
+              </p>
               <h2 className="card-title">{talk.title}</h2>
               <p className="card-desc">{talk.excerpt}</p>
             </Link>
