@@ -1,5 +1,4 @@
 const checkUserForPermission = (user, permission) => {
-  console.log(user.permissions, permission);
   if (!user || !user.permissions || !user.permissions.includes(permission)) {
     throw 'User does not have the appropriate permission';
   }

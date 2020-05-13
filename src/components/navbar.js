@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useAuth0 } from '../utils/auth';
 
-const Header = ({ siteTitle }) => {
+const Navbar = () => {
   const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0();
 
   return (
     <header>
       <nav id="navbar">
         <p id="brand">
-          <Link to="/">{siteTitle}</Link>
+          <Link to="/">Talk Track</Link>
         </p>
         <div className="nav-items">
           {isAuthenticated && (
@@ -18,7 +18,10 @@ const Header = ({ siteTitle }) => {
               <Link to="/addTalk" className="nav-item">
                 Add Talk
               </Link>
-              <button className="linkBtn nav-item" onClick={logout}>
+              <button
+                className="linkBtn nav-item"
+                onClick={() => logout({ returnTo: window.location.origin })}
+              >
                 Logout
               </button>
             </>
@@ -39,8 +42,4 @@ const Header = ({ siteTitle }) => {
   );
 };
 
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-};
-
-export default Header;
+export default Navbar;
