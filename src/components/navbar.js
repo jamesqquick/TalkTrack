@@ -1,10 +1,9 @@
 import { Link } from 'gatsby';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { useAuth0 } from '../utils/auth';
 
 const Navbar = () => {
-  const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   return (
     <header>

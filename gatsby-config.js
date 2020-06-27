@@ -35,7 +35,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
-        fonts: [`Merriweather`, 'Montserrat'],
+        fonts: ['Permanent Marker'],
         display: 'swap',
       },
     },

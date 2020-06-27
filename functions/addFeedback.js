@@ -17,12 +17,11 @@ exports.handler = async function(event, context, callback) {
     await trello.addCommentToCard(cardId, comment);
 
     if (process.env.TEXT_ALERTS_ON === 'TRUE') {
-      const message = await client.messages.create({
-        body: 'You have received new feedback on your talk!',
+      await client.messages.create({
+        body: `New Feedback : "${comment}"`,
         from: process.env.TWILIO_FROM_NUMBER,
         to: process.env.TWILIO_TO_NUMBER,
       });
-      console.log(message);
     }
 
     return {

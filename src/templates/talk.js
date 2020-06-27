@@ -3,24 +3,22 @@ import Layout from '../components/layout';
 import SEO from '../components/seo';
 import Feedback from '../components/feedback';
 import SearchedTweets from '../components/searchedTweets';
+import CardMetadata from '../components/CardMetadata';
 export default function Talk({ pageContext: talk }) {
   return (
     <Layout>
       <SEO title={talk.title} />
       <div className="card relative">
-        <small className="card-date">{talk.date}</small>
         <h1 className="card-title">{talk.title}</h1>
-        <p>
-          {talk.conference + ' - '}
-          <a href={talk.slides}>Slides</a>
-        </p>
-
+        <CardMetadata talk={talk} includeSlides={true} />
         <p>{talk.description}</p>
       </div>
       <div className="card">
         <Feedback cardId={talk.id} />
       </div>
-      <SearchedTweets />
+      <div className="card">
+        <SearchedTweets />
+      </div>
     </Layout>
   );
 }

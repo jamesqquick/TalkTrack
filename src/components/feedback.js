@@ -62,7 +62,9 @@ export default function Feedback({ cardId }) {
         ></textarea>
         <label htmlFor="email">Email (optional)</label>
         <input type="text" name="email" id="email" {...bindEmail} />
-        <button type="submit">Send</button>
+        <button className="btn" type="submit">
+          Send
+        </button>
       </form>
     </section>
   );

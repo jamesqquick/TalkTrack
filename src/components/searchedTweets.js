@@ -19,18 +19,23 @@ export default function SearchedTweets() {
     <>
       <h2>Tweets</h2>
       <div className="tweets-list">
+        {tweets !== null && tweets.length === 0 && (
+          <p>Someone needs to go tweet something!!!</p>
+        )}
         {tweets != null &&
           tweets.map(tweet => (
-            <div className="card hover " key={tweet.id}>
+            <div className="tweet" key={tweet.id}>
               <img
-                className="card-image"
+                className="tweet-image"
                 src={tweet.user.profile_image_url_https}
                 alt={tweet.user.screen_name + ' image'}
               />
-              <p>{tweet.text}</p>
-              <a href={`https://www.twitter.com/${tweet.user.screen_name}`}>
-                <p>by: {tweet.user.screen_name}</p>
-              </a>
+              <div className="tweet-content">
+                <a href={`https://www.twitter.com/${tweet.user.screen_name}`}>
+                  <p className="tweet-user">@{tweet.user.screen_name}</p>
+                  <p className="tweet-text">{tweet.text}</p>
+                </a>
+              </div>
             </div>
           ))}
       </div>

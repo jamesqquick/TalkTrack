@@ -1,5 +1,4 @@
 import React from 'react';
-import { navigate } from 'gatsby';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
 import { useInput } from '../components/useInput';
@@ -61,7 +60,7 @@ export default function AddTalk() {
       <Layout>
         <SEO title="Add Talk" />
         <div>
-          <h1>Add a Talk</h1>
+          <h1 className="title">Add a Talk</h1>
 
           <form onSubmit={submitTalk}>
             <label htmlFor="title">Talk Title</label>
@@ -86,7 +85,9 @@ export default function AddTalk() {
               rows="10"
               {...bindDescription}
             ></textarea>
-            <button type="submit">Submit</button>
+            <button className="btn" type="submit">
+              Submit
+            </button>
           </form>
         </div>
       </Layout>
