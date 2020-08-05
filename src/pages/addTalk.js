@@ -3,10 +3,18 @@ import Layout from '../components/layout';
 import SEO from '../components/seo';
 import { useInput } from '../components/useInput';
 import ProtectedRoute from '../components/ProtectedRoute';
-import { useAuth0 } from '../utils/auth';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useEffect } from 'react';
 
 export default function AddTalk() {
-  const { getTokenSilently } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
+
+  useEffect(() => {
+    const logToken = async () => {
+      console.log(await getAccessTokenSilently());
+    };
+    logToken();
+  }, []);
 
   const { value: title, bind: bindTitle, reset: resetTitle } = useInput('');
   const { value: date, bind: bindDate, reset: resetDate } = useInput('');
@@ -31,11 +39,12 @@ export default function AddTalk() {
     resetDescription();
   };
 
-  const submitTalk = async e => {
+  const submitTalk = async (e) => {
+    console.log('submitting');
     const talk = { title, date, slides, conference, description };
     e.preventDefault();
     try {
-      const token = await getTokenSilently();
+      const token = await getAccessTokenSilently();
       const url = '/.netlify/functions/addTalk';
       const res = await fetch(url, {
         method: 'POST',

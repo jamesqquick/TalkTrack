@@ -5,36 +5,9 @@ const trello = new Trello(
   process.env.TRELLO_USER_TOKEN
 );
 const axios = require('axios');
-var jwt = require('jsonwebtoken');
-const jwksClient = require('jwks-rsa');
-const { promisify } = require('util');
-const {
-  availablePermissions,
-  checkUserForPermission,
-} = require('./utils/auth.js');
-const client = jwksClient({
-  cache: true, // Default Value
-  cacheMaxEntries: 5, // Default value
-  jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
-});
+const { requirePermission } = require('./utils/auth');
 
-let signingKey;
-
-exports.handler = async function(event, context, callback) {
-  let user = null;
-  try {
-    user = await checkHeaderForValidToken(event.headers);
-    checkUserForPermission(user, availablePermissions.ADD_TALK_PERMISSION);
-
-    console.log(user);
-  } catch (err) {
-    console.error(err);
-    return {
-      statusCode: 401,
-      body: JSON.stringify({ msg: err }),
-    };
-  }
-
+exports.handler = requirePermission('add:talk', async function(event) {
   const body = JSON.parse(event.body);
   const { title, date, slides, conference, description } = body;
   const header = `${title}-${conference}`;
@@ -45,11 +18,7 @@ date=${date}
 description=${description}`;
 
   try {
-    const card = await trello.addCard(
-      header,
-      cardContent,
-      process.env.TRELLO_LIST_ID
-    );
+    await trello.addCard(header, cardContent, process.env.TRELLO_LIST_ID);
     const res = await axios.post(process.env.NETLIFY_BUILD_HOOK);
     if (res.status !== 200) {
       return {
@@ -66,44 +35,7 @@ description=${description}`;
     console.error(ex);
     return {
       statusCode: 500,
-      body: JSON.stringify({ msg: 'Failed to send email.' }),
+      body: JSON.stringify({ msg: 'Failed to add talk.' }),
     };
   }
-};
-
-const checkHeaderForValidToken = async headers => {
-  const rawAuthorizationHeader = headers['authorization'];
-
-  if (!rawAuthorizationHeader) {
-    throw 'Unauthorized. No access token included';
-  }
-
-  const accessToken = rawAuthorizationHeader.split(' ')[1];
-  if (!accessToken) {
-    throw 'Unauthorized. Token is invalid.';
-  }
-
-  if (!signingKey) {
-    const getSigningKey = promisify(client.getSigningKey);
-    try {
-      const key = await getSigningKey(process.env.AUTH0_KEY_ID);
-      signingKey = key.getPublicKey();
-    } catch (err) {
-      console.error(err);
-      throw 'Failed to verify key';
-    }
-  }
-
-  try {
-    var decoded = jwt.verify(accessToken, signingKey);
-    console.log(decoded);
-  } catch (err) {
-    console.error(err);
-    throw err.message;
-  }
-
-  if (!decoded) {
-    throw 'Failed to verify token';
-  }
-  return decoded;
-};
+});

@@ -1,20 +1,18 @@
 import React from 'react';
-import { Auth0Provider } from './src/utils/auth';
+import { Auth0Provider } from '@auth0/auth0-react';
+
 import { navigate } from 'gatsby';
 import authConfig from './auth_config.json';
-// A function that routes the user to the right place after login
-const onRedirectCallback = appState => {
-  // TODO: What about history and targetURL?
-  navigate(appState);
-};
+
+const onRedirectCallback = appState => navigate(appState?.returnTo || '/');
 
 export const wrapRootElement = ({ element }) => {
   return (
     <Auth0Provider
       domain={authConfig.domain}
-      client_id={authConfig.clientId}
+      clientId={authConfig.clientId}
       audience={authConfig.audience}
-      redirect_uri={window.location.origin}
+      redirectUri={window.location.origin}
       onRedirectCallback={onRedirectCallback}
     >
       {element}
