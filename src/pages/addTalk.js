@@ -9,13 +9,6 @@ import { useEffect } from 'react';
 export default function AddTalk() {
   const { getAccessTokenSilently } = useAuth0();
 
-  useEffect(() => {
-    const logToken = async () => {
-      console.log(await getAccessTokenSilently());
-    };
-    logToken();
-  }, []);
-
   const { value: title, bind: bindTitle, reset: resetTitle } = useInput('');
   const { value: date, bind: bindDate, reset: resetDate } = useInput('');
   const { value: slides, bind: bindSlides, reset: resetSlides } = useInput('');
