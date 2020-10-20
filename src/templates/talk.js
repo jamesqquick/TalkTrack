@@ -8,6 +8,17 @@ export default function Talk({ pageContext: talk }) {
   return (
     <Layout>
       <SEO title={talk.title} />
+      <a
+        href="https://twitter.com/intent/tweet?button_hashtag=jqquicktalks"
+        class="btn"
+        data-show-count="false"
+        target="_blank"
+        style={{ marginBottom: '20px' }}
+        rel="noopener noreferrer"
+      >
+        Tweet #jqquicktalks
+      </a>
+
       <div className="card relative">
         <h1 className="card-title">{talk.title}</h1>
         <CardMetadata talk={talk} includeSlides={true} />

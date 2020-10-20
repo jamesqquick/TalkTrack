@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
+
 import { Link } from 'gatsby';
 import CardMetadata from '../components/CardMetadata';
 const IndexPage = props => {

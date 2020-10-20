@@ -1,12 +1,8 @@
-html {
-  font-weight: sans-serif;
-}
-
 h1,
 h2,
 h3,
 h4 {
-  font-family: 'Permanent Marker';
+  font-family: 'Permanent Marker', sans-serif;
 }
 
 :root {
@@ -236,11 +232,13 @@ label {
   font-family: 'Permanent Marker';
   cursor: pointer;
   transition: background-color 250ms;
+  display: inline-block;
 }
 
 .btn:hover {
   color: var(--main-light-text);
   background-color: var(--primary-color);
+  text-decoration: none;
 }
 
 input,
