@@ -12,8 +12,8 @@ export default function Talk({ pageContext: talk }) {
         href="https://twitter.com/intent/tweet?button_hashtag=jqquicktalks"
         class="btn"
         data-show-count="false"
-        target="_blank"
         style={{ marginBottom: '20px' }}
+        target="_blank"
         rel="noopener noreferrer"
       >
         Tweet #jqquicktalks

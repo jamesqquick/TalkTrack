@@ -19,7 +19,7 @@ export default function talkMetadata({ includeSlides, talk }) {
       {includeSlides && (
         <>
           <span className="separator">|</span>
-          <a href={talk.slides}>
+          <a href={talk.slides} target="_blank" rel="noopener noreferrer">
             <FontAwesomeIcon className="icon" icon={faFileAlt} /> Slides
           </a>
         </>
