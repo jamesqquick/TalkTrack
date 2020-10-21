@@ -9,7 +9,7 @@ export default function Talk({ pageContext: talk }) {
     <Layout>
       <SEO title={talk.title} />
       <a
-        href="https://twitter.com/intent/tweet?button_hashtag=jqquicktalks"
+        href="https://twitter.com/intent/tweet?hashtags=JQQuickTalks"
         class="btn"
         data-show-count="false"
         style={{ marginBottom: '20px' }}
