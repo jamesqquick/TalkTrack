@@ -23,7 +23,7 @@
     "gatsby-source-filesystem": "^2.1.46",
     "gatsby-source-twitter": "^3.2.1",
     "gatsby-transformer-sharp": "^2.3.13",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "jwks-rsa": "^1.7.0",
     "netlify-lambda": "^1.6.3",
     "prop-types": "^15.7.2",
